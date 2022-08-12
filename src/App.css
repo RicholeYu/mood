@@ -1,38 +1,256 @@
-.App {
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "PingFang HK";
+}
+
+body {
+  padding: 22px;
+}
+
+.page-mood-index {
+  height: 100vh;
+  border-radius: 24px;
+  box-shadow: 0px -6px 16px 0px #00000026;
+}
+
+body::before {
+  content: " ";
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  opacity: 1;
+  background-color: #FFF;
+  z-index: 100;
+  animation: forwards start_fade 1.5s;
+  display: block;
+}
+
+.ct {
+  padding-top: 43px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  padding-bottom: 40px;
+}
+
+.ct h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+h3 img {
+  width: 28px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.ct .average {
+  font-size: 55px;
+  font-weight: 800;
+  font-family: Nunito;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ct p {
+  color: #929292;
+  font-size: 15px;
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.separation {
+  position: absolute;
+  left: 0;
+  z-index: -30;
+  width: 100%;
+  height: 2px;
+  background-color: #F2F2F2;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.se1 {
+  top: 0px;
+}
+
+.se2 {
+  top: 100px;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 0px 12px 0;
+  padding-top: 12px;
+  position: relative;
+}
+
+li {
   display: flex;
   flex-direction: column;
+  height: 300px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.box {
+  position: relative;
+  /* transform: scaleY(1.2);
+  transform-origin: bottom; */
+}
+
+.box.normal {
+  background: #52C873;
+  border: 3px solid #52C873;
+}
+.box.normal.active {
+  background: linear-gradient(to bottom, #42F373, #A1FD44, #DCFFD6);
+  transform: scale(1.05);
+  border: 3px solid rgba(220, 255, 214, 1);
+}
+
+.box.greate {
+  background: #FF823C;
+  border: solid 3px #FF823C;
+}
+
+.box.greate.active {
+  background: linear-gradient(to bottom,rgba(255, 161, 74, 1), rgba(255, 204, 71, 1), rgba(255, 233,212, 1));
+  transform: scale(1.05);
+  border: 3px solid rgba(255, 233, 212, 1);
+  box-shadow: 0px 4px 10px 0px rgb(0 0 0 / 20%);
+}
+
+.box.empty {
+  background: #CFCFCF;
+}
+
+.box.normal, .box.empty, .box.greate {
+  position: relative;
+  color: #FFF;
+  border-radius: 30px;
+  width: 44px;
+  min-height: 43px;
+  overflow: visible;
+  transition: 0.3s all;
+}
+
+.img {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translate(-50%) scale(1);
+  opacity: 0;
+  animation: forwards start_icon 0.5s ease-in-out;
+  filter: brightness(1);
+}
+.active img {
+  filter: brightness(1.1);
+}
+
+.num {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 35px;
+  text-align: center;
+  height: 0px;
+  color: transparent;
+  animation: forwards start_num 0.7s ease-in-out;
+}
+
+
+.date {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 36px;
+  height: 36px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  color: #2D2F33;
+  font-weight: 500;
+  transition: 0.3s all;
+  animation: forwards start_date 0.5s ease-in-out;
+  opacity: 0;
+  transform: scale(0);
 }
 
-.App-link {
-  color: #61dafb;
+.date.active {
+  box-shadow: 0px 4px 10px 0px #00000033;
+  border-radius: 8px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.date.active {
+  color: #52C873;
+}
+
+.date.active.greate {
+  color: #F36A1B;
+}
+
+.date.spec {
+  background: #2D2F33;
+  border-radius: 8px;
+  color: #FFF;
+}
+
+@keyframes start_num {
+  0% {
+    color: transparent;
+    height: 0;
   }
-  to {
-    transform: rotate(360deg);
+
+  70% {
+    height: 275px;
+    color: transparent;
+  }
+
+  100% {
+    color: #FFF;
+    height: 275px;
+  }
+}
+
+@keyframes start_icon {
+  0% {
+    opacity: 0;
+    transform: translate(-50%) scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%) scale(1);
+  }
+}
+
+@keyframes start_date {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes start_fade {
+  0% {
+    opacity: 1;
+    z-index: 100;
+  }
+
+  100% {
+    opacity: 0;
+    z-index: -1;
   }
 }
