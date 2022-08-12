@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+* 项目运行环境
+node v16.9.0
+npm  v7.21.1
+xcode 13.3.1
+iOS 13.1 (17A844)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* 项目使用库和插件
+expo-cli 6.0.1
+expo
+react-native-zip-archive （APP zip压缩解压插件）
 
-## Available Scripts
+* 项目启动
+项目1: test1-mood-app
+npm i
+npm i expo-cli -g
+expo start
+使用xcode打开ios/test1moodapp.xcworkspace, 设置开发者账号和签名，关闭Notification设置，选择Iphone 11 Pro Max模拟器，编译运行。
 
-In the project directory, you can run:
+项目2: mood
+npm i
+npm start
 
-### `npm start`
+App架构设计
+方案: 使用H5离线化ZIP包模仿微信小程序
+优势:
+1. H5页面开发效率高，离线化ZIP包可做版本控制，版本回退等。
+2. 比起原生小程序，H5离线化功能实现简单，BUG少，不用出一套专门小程序的开发文档供第三方使用，小程序间逻辑功能解耦。
+3. 很轻易实现灰度发布方案，无技术壁垒。
+4. 实现自平台数据行为信息埋点上报
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+公共发布平台 (demo中未实现)
+- 公司 / 个人创建项目
+- 创建应用，上传发布H5离线包
+- 离线包灰度验证
+- 离线包版本回退
+- 公共静态资源发布
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+APP
+- 打开APP时通过接口获取最新离线化H5列表信息, 根据接口维护更新H5离线包
+- 当离线包下载失败或不可用时，也可以直接替换为使用http链接打开
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+项目通过source文件夹中的souce.json控制离线包入口
+source/mood.zip由mood工程执行npm run build之后使用zip压缩build文件夹
